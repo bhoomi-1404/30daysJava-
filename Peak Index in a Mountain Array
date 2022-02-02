@@ -1,0 +1,22 @@
+class Solution {
+    public int peak(int arr[],int si,int ei)
+    {
+        if(si<ei)
+        {  int mid=si+(ei-si)/2;
+            if(arr[mid]<arr[mid+1])
+            {
+                return peak(arr,mid+1,ei);
+            }
+         else
+         {
+             return peak(arr,si,mid);
+         }
+        }
+        return si;
+    }
+    public int peakIndexInMountainArray(int[] arr) {
+
+        return peak(arr,0,arr.length-1);
+        
+    }
+}
