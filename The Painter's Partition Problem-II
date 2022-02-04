@@ -1,0 +1,60 @@
+
+ class Solution{
+      public  static boolean  isPossible(int arr[], int n, int m, long mid) {
+    int studentCount = 1;
+    int pageSum = 0;
+  
+    
+    for(int i = 0; i<n; i++) {
+        if(pageSum + arr[i] <= mid) {
+            pageSum += arr[i];
+        }
+        else
+        {
+            studentCount++;
+            if(studentCount > m || arr[i] > mid ) {
+            return false;
+        }
+            pageSum = arr[i];
+        }
+        if(studentCount > m) {
+            return false;
+        }
+     
+    }
+    return true;
+}
+
+public static long allocateBooks(int arr[], int n, int m) {
+    long s = 0;
+    long sum = 0;
+    
+    for(int i = 0; i<n; i++) {
+        sum += arr[i];
+    }
+    long e = sum;
+    long ans = -1;
+    long mid = s + (e-s)/2;
+    
+    while(s<=e)
+    {
+        if(isPossible(arr,n,m,mid)) {
+         
+            ans = mid;
+            e = mid - 1;
+        }
+        else
+        {
+            s = mid + 1;
+        }
+        mid = s + (e-s)/2;
+    }
+    return (long)ans ;
+    
+}
+    static long minTime(int[] arr,int n,int k){
+        
+        //code here
+        return allocateBooks(arr,n,k);
+    }
+}
