@@ -1,0 +1,50 @@
+class Solution {
+  public boolean isPossible(int a[],int n, int k ,int mid)
+    {   
+        int cows=1;
+        int lastPos=a[0];
+        for(int i=0;i<n;i++)
+        {
+          if(a[i]-lastPos >=mid)
+          {   cows++;
+              if(cows==k)
+              {
+                  return true;
+              }
+              lastPos=a[i];
+          }
+
+        }
+        return false;
+    }
+    public  int search(int a[],int n,int k)
+    {    Arrays.sort(a);
+        int si=0;
+        int max=-1;
+        for(int i=0;i<n;i++)
+        {
+            max=Math.max(max,a[i]);
+        }
+        int ei=max;
+        int mid=si+(ei-si)/2;
+        int ans=-1;
+        while(si<=ei)
+        {
+            if(isPossible(a,n,k,mid))
+            {
+                ans=mid;
+                si=mid+1;
+            }
+            else
+            {
+                ei=mid-1;
+            }
+            mid=si+(ei-si)/2;
+        }
+        return  ans;
+    }
+    public int maxDistance(int[] position, int m) {
+        return search(position,position.length,m);
+        
+    }
+}
